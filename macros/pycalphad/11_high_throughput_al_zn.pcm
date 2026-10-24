@@ -1,0 +1,18 @@
+# =============================================================================
+# pycalphad 官方示例 3.1：High-throughput Calculations
+# 对应文档：examples/1_HighThroughputCalculations
+#
+# 官方对温度 × 成分网格批量求平衡，收集稳定相 / 最小 Gibbs 能 / 相数。
+# 宏里的 HT 命令就是这套计算：结果以表格交给主界面，可直接看、可导出。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+SWEEP T 300 900 25
+SWEEP ZN 0.02 0.98 0.02
+FIXED P=101325
+
+HT OUTPUTS=stable_phases,gm_min,n_phases PARALLEL=4
+EXPORT DATA output/11_high_throughput_al_zn.csv

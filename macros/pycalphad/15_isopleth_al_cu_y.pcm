@@ -1,0 +1,18 @@
+# =============================================================================
+# pycalphad 官方示例（Mapping API 的 IsoplethStrategy）：Isopleth
+# 对应文档：examples/3_Mapping
+#
+# 垂直截面：扫「一个组分 + 温度」，其余组分用固定条件钉住。
+# 这里取 Al-Cu-Y 的 x(Y)=0.1 截面；相集合与 02 号宏一致（见那里的内存说明）。
+# =============================================================================
+
+OPEN database/Al-Cu-Y.tdb
+ELEMENTS AL CU Y
+PHASES LIQUID FCC_A1 ALCUY ALCU5Y AL7CU2Y3 ALCU17Y2
+
+SWEEP T 700 1400 10
+SWEEP CU 0.02 0.88 0.02
+FIXED Y=0.1 P=101325
+
+DIAGRAM ISOPLETH
+EXPORT FIGURE output/15_isopleth_al_cu_y.png

@@ -1,0 +1,19 @@
+# =============================================================================
+# ESPEI 官方 Cu-Mg 教程：数据集校验（check_datasets）
+# 对应文档：https://espei.org/0.9.1/tutorials/cu-mg-example/cu-mg-example.html
+#
+# ESPEI 在训练前会逐个校验 *.json 数据集的字段、形状与自由度，并检查
+# ZPF（零相分数）数据是否满足质量守恒。CHECK 模式就是跑这一套校验，
+# 不会写出任何数据库文件。
+#
+# 本目录包含官方教程的完整数据（共 31 个 .json，分三层目录）：
+#   data/cu-mg/phase_models.json                 相模型（LIQUID/CUMG2/FCC_A1/HCP_A3/LAVES_C15）
+#   data/cu-mg/input-data/activity/               活度数据
+#   data/cu-mg/input-data/zpf/                    零相分数数据
+#   data/cu-mg/input-data/fixed-configuration-thermochemical/
+#                                                 生成焓 / 混合焓 / 熵数据
+# =============================================================================
+
+ESPEI CHECK DATASETS=data/cu-mg/input-data
+
+PRINT "Cu-Mg 官方教程数据集校验通过（终端日志里会列出每个文件的检查结果）"

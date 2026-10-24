@@ -1,0 +1,15 @@
+# =============================================================================
+# pycalphad 官方示例 2.4（中）：Equilibrium Properties and Partial Ordering
+# 对应文档：examples/4_EquilibriumWithOrdering
+#
+# Al-Fe 的 B2 有序相（B2_BCC）：同样用 degree_of_ordering 观察
+# 有序—无序转变。成分取等原子比 x(Al)=0.5。
+# =============================================================================
+
+OPEN database/alfe_sei.TDB
+ELEMENTS AL FE
+PHASES LIQUID BCC_A2 B2_BCC FCC_A1
+
+PROPERTY DEGREE-OF-ORDERING(B2_BCC) VS T FROM 300 TO 1800 STEP 5 X(AL)=0.5
+EXPORT FIGURE output/09_ordering_b2_fe_al.png
+EXPORT DATA output/09_ordering_b2_fe_al.csv

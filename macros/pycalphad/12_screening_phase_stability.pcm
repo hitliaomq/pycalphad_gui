@@ -1,0 +1,19 @@
+# =============================================================================
+# pycalphad 官方示例 3.3：Screening for Phase Stability
+# 对应文档：examples/3_ScreeningPhaseStability
+#
+# 官方用高通量网格筛「在哪些成分/温度下某相稳定」。
+# 这里在富 Zn 侧扫温度 × 成分，stable_phases 一列就是每个点的稳定相组合，
+# 可直接在「结果表」里筛选、导出成 CSV 再做后续统计。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+SWEEP T 300 800 20
+SWEEP ZN 0.5 0.95 0.01
+FIXED P=101325
+
+HT OUTPUTS=stable_phases,n_phases,gm_min PARALLEL=4
+EXPORT DATA output/12_screening_phase_stability.csv

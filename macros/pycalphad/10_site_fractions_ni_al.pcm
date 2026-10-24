@@ -1,0 +1,15 @@
+# =============================================================================
+# pycalphad 官方示例 2.4（下）：Equilibrium Properties and Partial Ordering
+# 对应文档：examples/4_EquilibriumWithOrdering
+#
+# 官方还展示了直接读有序相的各占位分数（site fraction）。
+# 宏里写成 PROPERTY SITEFRACTION(相)：该相每个亚点阵占位符一条曲线。
+# =============================================================================
+
+OPEN database/NI_AL_DUPIN_2001.TDB
+ELEMENTS AL NI
+PHASES LIQUID FCC_A1 FCC_L12 BCC_A2 BCC_B2
+
+PROPERTY SITEFRACTION(FCC_L12) VS T FROM 300 TO 1500 STEP 5 X(AL)=0.25
+EXPORT FIGURE output/10_site_fractions_fcc_l12.png
+EXPORT DATA output/10_site_fractions_fcc_l12.csv

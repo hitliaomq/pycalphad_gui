@@ -1,0 +1,23 @@
+# =============================================================================
+# pycalphad 官方示例 1.3：Plotting using the Mapping API
+# 对应文档：examples/3_Mapping
+#
+# 官网用 BinaryStrategy 画「单相区填底色、两相区留白」的 Al-Zn 相图。
+# 本 GUI 把这个流程封装成 OPTIONS GRID=ON：
+#   GRID=ON  -> 单相区整幅铺底色，tie line 之间填两相区颜色
+#   GRID=OFF -> 经典 binplot 线框
+# 这里同时导出 PNG 与 SVG，方便直接放进论文。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+SWEEP ZN 0 1 0.02
+SWEEP T 300 1000 5
+FIXED P=101325
+
+OPTIONS GRID=ON TIELINES=ON LABELS=OFF
+DIAGRAM BINARY
+EXPORT FIGURE output/03_mapping_shaded_binary.png
+EXPORT FIGURE output/03_mapping_shaded_binary.svg

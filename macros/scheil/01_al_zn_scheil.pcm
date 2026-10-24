@@ -1,0 +1,22 @@
+# =============================================================================
+# scheil 官方示例：Al-30Zn 的 Scheil 凝固
+# 对应仓库：https://github.com/pycalphad/scheil 的 README / 示例
+#
+# 原始调用：
+#   simulate_scheil(dbf, comps, phases, {'ZN': 0.3},
+#                   start_temperature=850, step_temperature=1,
+#                   liquid_phase_name='LIQUID')
+# 宏里的 SCHEIL 一一对应：
+#   X(ZN)=0.3  成分
+#   START-T=850 起始温度
+#   STEP-T=1    温度步长
+#   LIQUID=LIQUID 液相相名
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+SCHEIL X(ZN)=0.3 START-T=850 STEP-T=1 LIQUID=LIQUID
+EXPORT FIGURE output/01_al_zn_scheil.png
+EXPORT DATA output/01_al_zn_scheil.csv

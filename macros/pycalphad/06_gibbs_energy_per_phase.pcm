@@ -1,0 +1,15 @@
+# =============================================================================
+# pycalphad 官方示例 2.2：Gibbs Energy of Each Phase at Fixed Composition
+# 对应文档：examples/2_GibbsAtConcentration
+#
+# 官方对每个相单独建 Workspace 求 GM，再把曲线叠在一张图上。
+# 宏里用 SCOPE=per_phase：每个相一条曲线；固定 x(Zn)=0.3。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+PROPERTY GM VS T FROM 300 TO 1000 STEP 5 X(ZN)=0.3 SCOPE=per_phase
+EXPORT FIGURE output/06_gibbs_energy_per_phase.png
+EXPORT DATA output/06_gibbs_energy_per_phase.csv

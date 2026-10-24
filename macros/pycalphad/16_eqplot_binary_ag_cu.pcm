@@ -1,0 +1,18 @@
+# =============================================================================
+# pycalphad 官方示例（eqplot）：二元平衡态散点 / 连线
+# 对应文档：examples/2_UsingCalculationResults
+#
+# 与 DIAGRAM BINARY（映射算法画边界）不同，EQPLOT-BINARY 直接对网格点
+# 求 equilibrium，再把各相成分点画出来。适合核对「相区里到底算出什么」。
+# =============================================================================
+
+OPEN database/agcu.TDB
+ELEMENTS AG CU
+PHASES *
+
+SWEEP CU 0.05 0.95 0.02
+SWEEP T 500 1200 10
+FIXED P=101325
+
+DIAGRAM EQPLOT-BINARY
+EXPORT FIGURE output/16_eqplot_binary_ag_cu.png

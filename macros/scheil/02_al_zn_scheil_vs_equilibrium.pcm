@@ -1,0 +1,21 @@
+# =============================================================================
+# scheil 官方示例：Scheil 与平衡凝固对比
+# 对应仓库：https://github.com/pycalphad/scheil
+#
+# scheil 提供两种凝固路径：
+#   * Scheil-Gulliver（默认，液相不扩散、固相无扩散）
+#   * equilibrium（每步都重新求平衡）
+# 一份宏里连续跑两次，两张图都会送到主窗口中央画布，便于并排比较。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+SCHEIL X(ZN)=0.3 START-T=850 STEP-T=1 LIQUID=LIQUID
+EXPORT FIGURE output/02_al_zn_scheil_path.png
+EXPORT DATA output/02_al_zn_scheil_path.csv
+
+EQUILIBRIUM X(ZN)=0.3 START-T=850 STEP-T=1 LIQUID=LIQUID
+EXPORT FIGURE output/02_al_zn_equilibrium_path.png
+EXPORT DATA output/02_al_zn_equilibrium_path.csv

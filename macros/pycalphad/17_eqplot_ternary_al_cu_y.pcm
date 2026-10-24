@@ -1,0 +1,17 @@
+# =============================================================================
+# pycalphad 官方示例（eqplot）：三元平衡态散点 / 连线
+# 对应文档：examples/2_UsingCalculationResults
+#
+# 等温截面上的 equilibrium 网格。相集合与 02 号宏一致（见那里的内存说明）。
+# =============================================================================
+
+OPEN database/Al-Cu-Y.tdb
+ELEMENTS AL CU Y
+PHASES LIQUID FCC_A1 ALCUY ALCU5Y AL7CU2Y3 ALCU17Y2
+
+SWEEP CU 0.05 0.85 0.05
+SWEEP Y 0.05 0.85 0.05
+FIXED T=1073.15 P=101325
+
+DIAGRAM EQPLOT-TERNARY
+EXPORT FIGURE output/17_eqplot_ternary_al_cu_y.png

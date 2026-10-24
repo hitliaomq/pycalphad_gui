@@ -1,0 +1,18 @@
+# =============================================================================
+# pycalphad 官方示例（Mapping API 的 StepStrategy）：Step Diagram
+# 对应文档：examples/3_Mapping
+#
+# Step 图：只扫一个量（这里温度），其余条件固定。默认纵轴是相分数，
+# 也可以用 STEP-Y=X(相,元素) 改成「某相中某元素的含量」。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+SWEEP T 300 900 2
+FIXED X(ZN)=0.3 P=101325
+OPTIONS STEP-Y=NP
+
+DIAGRAM STEP
+EXPORT FIGURE output/14_step_phase_fraction.png

@@ -1,0 +1,22 @@
+# =============================================================================
+# pycalphad 官方示例 1.2：Plotting Ternary Phase Diagrams and Using Triangular Axes
+# 对应文档：examples/2_TernaryExamples
+#
+# Al-Cu-Y 在 1073.15 K 的等温截面。
+#
+# 说明：原示例用了库里全部 31 个相。逐相编译在部分机器上会耗尽 LLVM 内存
+# （MemoryError），所以这里只保留该截面上稳定出现的 6 个相；想跑全相图
+# 可以把 PHASES 一行改成 PHASES *，但要预留足够内存。
+# =============================================================================
+
+OPEN database/Al-Cu-Y.tdb
+ELEMENTS AL CU Y
+PHASES LIQUID FCC_A1 ALCUY ALCU5Y AL7CU2Y3 ALCU17Y2
+
+SWEEP CU 0 1 0.05
+SWEEP Y 0 1 0.05
+FIXED T=1073.15 P=101325
+
+# GRID=ON 用官网 mapping 示例的「单相区填色」风格
+DIAGRAM TERNARY GRID=ON
+EXPORT FIGURE output/02_ternary_al_cu_y.png

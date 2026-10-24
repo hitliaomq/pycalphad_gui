@@ -1,0 +1,25 @@
+# =============================================================================
+# ESPEI 官方 Cu-Mg 教程：从相模型 + 实验数据生成参数（generate）
+# 对应文档：https://espei.org/0.9.1/tutorials/cu-mg-example/cu-mg-example.html
+#
+# 关键设置必须和官方 run_param_gen.yaml 一致，否则参数个数与数值都会跑偏：
+#   * TAGS：给 dft / estimated-entropy 数据集排除 idmix、mag 贡献，
+#     并给 estimated-entropy 数据 0.1 的权重（否则熵数据被过度加权）
+#   * AICC：液相 HM、SM 的 AICc 惩罚乘 1.4，促使液相拟出两个参数
+#
+# 产物：
+#   output/Cu-Mg-generated.tdb   与官方教程同名的生成数据库（会被自动载入界面）
+#   output/02_generate_cu_mg.png 计算相图 vs 数据集对比图
+# =============================================================================
+
+ESPEI GENERATE \
+    PHASE-MODELS=data/cu-mg/phase_models.json \
+    DATASETS=data/cu-mg/input-data \
+    OUTPUT-DB=output/Cu-Mg-generated.tdb \
+    REF-STATE=SGTE91 \
+    EXCESS-MODEL=linear \
+    TAGS=dft:-idmix,-mag;estimated-entropy:-idmix,-mag,weight=0.1 \
+    AICC=LIQUID:HM=1.4,LIQUID:SM=1.4 \
+    VERBOSITY=2
+
+EXPORT FIGURE output/02_generate_cu_mg.png

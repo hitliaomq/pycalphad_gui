@@ -1,0 +1,20 @@
+# =============================================================================
+# pycalphad 官方示例 2.1（下）：Phase Fractions and Phase Compositions vs Temperature
+# 对应文档：examples/1_PhaseCompositions
+#
+# 官方用 Workspace.get(v.X('FCC_A1','ZN')) 取「某相中某元素的含量」。
+# 宏里写成 PROPERTY X(相, 元素)。这里把 FCC_A1 与 HCP_A3 两条曲线
+# 放进同一张图，成分仍固定 x(Zn)=0.3。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+PROPERTY X(FCC_A1,ZN) VS T FROM 300 TO 1000 STEP 5 X(ZN)=0.3
+EXPORT FIGURE output/05_phase_composition_fcc_vs_t.png
+EXPORT DATA output/05_phase_composition_fcc_vs_t.csv
+
+PROPERTY X(HCP_A3,ZN) VS T FROM 300 TO 1000 STEP 5 X(ZN)=0.3
+EXPORT FIGURE output/05_phase_composition_hcp_vs_t.png
+EXPORT DATA output/05_phase_composition_hcp_vs_t.csv

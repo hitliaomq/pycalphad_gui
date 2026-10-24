@@ -1,0 +1,16 @@
+# =============================================================================
+# pycalphad 官方示例 2.4（上）：Equilibrium Properties and Partial Ordering
+# 对应文档：examples/4_EquilibriumWithOrdering
+#
+# Ni-Al 里的 FCC_L12 是有序相。官方用 degree_of_ordering 看有序度随温度
+# 的消失过程；宏里写成 PROPERTY DEGREE-OF-ORDERING(相)。
+# 成分取 Ni3Al 附近的 x(Al)=0.25。
+# =============================================================================
+
+OPEN database/NI_AL_DUPIN_2001.TDB
+ELEMENTS AL NI
+PHASES LIQUID FCC_A1 FCC_L12 BCC_A2 BCC_B2
+
+PROPERTY DEGREE-OF-ORDERING(FCC_L12) VS T FROM 300 TO 1500 STEP 5 X(AL)=0.25
+EXPORT FIGURE output/08_ordering_fcc_l12_ni_al.png
+EXPORT DATA output/08_ordering_fcc_l12_ni_al.csv

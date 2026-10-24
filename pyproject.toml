@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pycalphad-gui"
+version = "0.1.0"
+description = "面向 pycalphad 的图形界面：数据库浏览、相图与属性绘制、高通量计算与结果导出"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+# 故意不锁死版本下限以外的约束，避免与 requirements.txt 打架
+dependencies = [
+    "pycalphad>=0.11,<0.14",
+    "PyQt6>=6.6",
+    "matplotlib>=3.8",
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[project.scripts]
+pycalphad-gui = "pycalphad_gui.__main__:main"
+
+[tool.setuptools]
+packages = ["pycalphad_gui", "pycalphad_gui.core", "pycalphad_gui.ui", "pycalphad_gui.workers"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# 这两套脚本自带 main() 运行器，交给 pytest 也能直接收集
+python_files = ["test_*.py"]
+# 本机同时装了 PySide6 与 PyQt6；pytest-qt 默认可能先加载 PySide6，
+# 之后 matplotlib 再导入 PyQt6.QtSvg 会撞上已加载的 PySide6 Qt6 DLL
+# （0xc0000139 entry point not found）。这里钉死绑定，保证测试进程只加载 PyQt6。
+qt_api = "pyqt6"
+filterwarnings = [
+    # pycalphad 在工作线程建 figure 时会警告，本项目已按 ARCHITECTURE §4.6 规避
+    "ignore:Starting a Matplotlib GUI outside of the main thread:UserWarning",
+]

@@ -1,0 +1,37 @@
+# =============================================================================
+# ESPEI 官方 Cu-Mg 教程：MCMC 参数不确定度量化（mcmc）
+# 对应文档：https://espei.org/0.9.1/tutorials/cu-mg-example/cu-mg-example.html
+#
+# 先用 GENERATE 得到与官方一致的起始数据库，再用 MCMC 在参数空间采样。
+# 设置与官方 run_mcmc.yaml 一致：2000 次迭代、每条参数 4 条链、
+# 单核串行、normal 先验（loc/scale 均相对当前参数值取 1.0）。
+#
+# 说明：官方用 2000 次迭代才能收敛到教程给出的不确定度。Cu-Mg 有 24 个
+# 待拟合参数、31 个数据集，单核每轮迭代约 5~7 分钟（本机实测），完整跑完
+# 需要数天；只想验证链路时，先把 ITERATIONS 改成 2。MCMC 本身是随机采样，
+# 即使设置完全相同，得到的 TDB 也不会逐位复现官方文件，应比较后验分布
+# 与拟合质量。
+#
+# 本宏通过 INCLUDE 先跑一遍生成步骤，因此可以单独执行；
+# 若已有 output/Cu-Mg-generated.tdb，也可以删掉 INCLUDE 直接跑 MCMC。
+# =============================================================================
+
+INCLUDE 02_generate_cu_mg.pcm
+
+ESPEI MCMC \
+    PHASE-MODELS=data/cu-mg/phase_models.json \
+    DATASETS=data/cu-mg/input-data \
+    INPUT-DB=output/Cu-Mg-generated.tdb \
+    OUTPUT-DB=output/Cu-Mg-mcmc.tdb \
+    TAGS=dft:-idmix,-mag;estimated-entropy:-idmix,-mag,weight=0.1 \
+    ITERATIONS=2000 \
+    SAVE-INTERVAL=1 \
+    CHAINS=4 \
+    STD-DEV=0.1 \
+    SCHEDULER=none \
+    PRIOR=normal \
+    PRIOR-LOC=1.0 \
+    PRIOR-SCALE=1.0 \
+    VERBOSITY=2
+
+EXPORT FIGURE output/03_mcmc_cu_mg.png

@@ -1,0 +1,15 @@
+# =============================================================================
+# pycalphad 官方示例 2.1（上）：Phase Fractions and Phase Compositions vs Temperature
+# 对应文档：examples/1_PhaseCompositions
+#
+# 官方用 Workspace.get_dict('NP(*)') 取平衡态各相摩尔分数。
+# 这里用 PROPERTY NP：每个相一条曲线，横轴为温度，成分固定 x(Zn)=0.3。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+PROPERTY NP VS T FROM 300 TO 1000 STEP 5 X(ZN)=0.3
+EXPORT FIGURE output/04_phase_fractions_vs_t.png
+EXPORT DATA output/04_phase_fractions_vs_t.csv

@@ -1,0 +1,19 @@
+# =============================================================================
+# pycalphad 官方示例 1.1：Plotting Isobaric Binary Phase Diagrams with binplot
+# 对应文档：examples/1_BinaryExamples
+#
+# 用 binplot 画 Al-Zn 等压 T–X 相图。宏里的 DIAGRAM BINARY 走的就是
+# pycalphad 的 mapping / binplot 通道，画出的边界与官方示例一致。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+
+# 官方示例条件：P = 101325 Pa，T 300–1000 K，x(Zn) 0–1
+SWEEP ZN 0 1 0.02
+SWEEP T 300 1000 5
+FIXED P=101325
+
+DIAGRAM BINARY
+EXPORT FIGURE output/01_binary_al_zn.png

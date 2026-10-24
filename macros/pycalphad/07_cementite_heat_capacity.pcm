@@ -1,0 +1,16 @@
+# =============================================================================
+# pycalphad 官方示例 2.3：Heat Capacity of Cementite (Fe3C)
+# 对应文档：examples/3_CementiteAnalysis
+#
+# 官方示例单独评估 CEMENTITE 相的热容。这里把成分钉在 Fe3C 的化学计量
+# 比 x(C)=0.25，只保留 CEMENTITE 一个相逐相求解 CPM。
+# =============================================================================
+
+OPEN database/steel1.TDB
+ELEMENTS FE C
+PHASES CEMENTITE
+
+# Fe3C：x(C) = 0.25
+PROPERTY CPM VS T FROM 300 TO 1200 STEP 10 X(C)=0.25 SCOPE=per_phase
+EXPORT FIGURE output/07_cementite_cpm.png
+EXPORT DATA output/07_cementite_cpm.csv

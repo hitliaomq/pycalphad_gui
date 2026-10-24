@@ -1,0 +1,19 @@
+# =============================================================================
+# pycalphad 官方示例 4.2：Metastability calculations
+# 对应文档：examples/2_Metastability
+#
+# 官方通过「禁用某个相」计算亚稳平衡。宏里用 EXCLUDE 把 FCC_A1 拿掉，
+# 再画 Al-Zn 相图：FCC_A1 不再出现在相区里，HCP_A3 与液相直接平衡。
+# =============================================================================
+
+OPEN database/alzn_mey.tdb
+ELEMENTS AL ZN
+PHASES LIQUID FCC_A1 HCP_A3
+EXCLUDE FCC_A1
+
+SWEEP ZN 0 1 0.02
+SWEEP T 300 900 10
+FIXED P=101325
+
+DIAGRAM BINARY
+EXPORT FIGURE output/13_metastable_no_fcc_a1.png
